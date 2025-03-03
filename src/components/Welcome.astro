@@ -2,12 +2,17 @@
 
 ---
 
-<script
-  is:inline
-  src="https://kit.fontawesome.com/be4c58b0af.js"
-  crossorigin="anonymous"></script>
 <script>
   import { animate, inView, hover, stagger } from "motion";
+  import { createIcons, Github, Link, Linkedin, MoveDown } from "lucide";
+  createIcons({
+    icons: {
+      Link,
+      MoveDown,
+      Github,
+      Linkedin,
+    },
+  });
 
   inView(".scroll-section h2", (element) => {
     animate(
@@ -19,14 +24,11 @@
     return () => animate(element, { opacity: 0, x: -100 });
   });
 
-  animate("li", { opacity: [0, 1], y: [10, 0] }, { delay: stagger(0.15) });
-
-  hover("a", (element) => {
-    console.log("in fx");
-    animate(element, { scale: 1.3 }, { type: "spring" });
-
-    return () => animate(element, { scale: 1 }, { type: "spring" });
-  });
+  animate(
+    ".stagger",
+    { opacity: [0, 1], y: [10, 0] },
+    { delay: stagger(0.15) },
+  );
 </script>
 
 <div id="container">
@@ -34,10 +36,10 @@
     <div id="logo">Jackcheal Dang 🧑🏻‍💻</div>
     <nav id="navbar">
       <ul id="navbar-sections">
-        <li><a href="#hero">about</a></li>
-        <li><a href="#skills">skills</a></li>
-        <li><a href="#projects">projects</a></li>
-        <li>
+        <li class="stagger"><a href="#hero">about</a></li>
+        <li class="stagger"><a href="#skills">skills</a></li>
+        <li class="stagger"><a href="#projects">projects</a></li>
+        <li class="stagger">
           <a class="button" id="contact_button" href="#contact">contact</a>
         </li>
       </ul>
@@ -49,9 +51,36 @@
       <div class="wrapper">
         <div id="intro">hi, I'm Jackcheal Dang 🧑🏻‍💻</div>
       </div>
-      <div>
-        I'm a software engineer based in DFW.<br />take a look at my work!&nbsp;<i
-          class="fa-solid fa-arrow-down"></i>
+      <div id="hero-info">
+        <div>
+          I'm a software engineer based in DFW.<br />take a look at my work
+          below!&nbsp;<i
+            data-lucide="move-down"
+            style="width: 1rem; height: 1rem;"></i>
+        </div>
+        <div style="margin-top: 2rem">you can also find me at...</div>
+        <div style="display:flex; column-gap: 1.2rem; margin-top: 1rem">
+          <div>
+            <a
+              href="https://github.com/jackchealdang"
+              class="btn stagger"
+              style="display:flex;align-items: center;"
+              ><i
+                style="width:1rem;height:1rem;margin-right:0.4rem"
+                data-lucide="github"></i>Github</a
+            >
+          </div>
+          <div>
+            <a
+              href="https://linkedin.com/in/jackchealdang"
+              class="btn stagger"
+              style="display:flex;align-items: center;"
+              ><i
+                style="width:1rem;height:1rem;margin-right: 0.4rem;"
+                data-lucide="linkedin"></i>LinkedIn</a
+            >
+          </div>
+        </div>
       </div>
     </section>
     <section class="scroll-section" id="skills">
@@ -59,7 +88,7 @@
       <div class="experience-grid">
         <div class="experience">
           <div class="company-role">Paycom</div>
-          <div class="date-location">June 2023 -- Jan 2025</div>
+          <div class="date-location">June 2023 &mdash; Jan 2025</div>
           <div class="experience-details">
             <ul>
               <!-- <li>- Contributed massive work!</li> -->
@@ -68,7 +97,29 @@
         </div>
         <div class="experience">
           <div class="company-role">L3Harris Technologies</div>
-          <div class="date-location"></div>
+          <div class="date-location">Feb 2022 &mdash; March 2023</div>
+          <div class="experience-details"></div>
+        </div>
+        <div class="experience">
+          <div class="company-role">State Farm</div>
+          <div class="date-location">May 2021 &mdash; July 2021</div>
+          <div class="experience-details">
+            <ul>
+              <li>
+                <!-- &hybull; Developing and maintaining CRM software with React, -->
+                <!-- JavaScript, PHP, and Composer. -->
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="experience">
+          <div class="company-role">Heracleia REU Program</div>
+          <div class="date-location">Aug 2020 &mdash; Feb 2021</div>
+          <div class="experience-details"></div>
+        </div>
+        <div class="experience">
+          <div class="company-role">TexPREP</div>
+          <div class="date-location">May 2019 &mdash; Aug 2019</div>
           <div class="experience-details"></div>
         </div>
       </div>
@@ -77,7 +128,13 @@
       <h2>Projects</h2>
       <div class="bento">
         <ul>
-          <li>Minimo - a minimal Todo app</li>
+          <li>
+            <a href="https://jackchealdang.github.io/minimo">
+              <strong>Minimo </strong>
+              <i data-lucide="link" style="width: 1rem; height: 1rem;"></i>
+              - a minimal Todo app
+            </a>
+          </li>
         </ul>
       </div>
     </section>
@@ -88,19 +145,6 @@
   <footer>
     <div>© Jackcheal Dang 2025</div>
   </footer>
-
-  <!-- <a href="https://astro.build/blog/astro-5/" id="news" class="box"> -->
-  <!-- 	<svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg" -->
-  <!-- 		><path -->
-  <!-- 			d="M24.667 12c1.333 1.414 2 3.192 2 5.334 0 4.62-4.934 5.7-7.334 12C18.444 28.567 18 27.456 18 26c0-4.642 6.667-7.053 6.667-14Zm-5.334-5.333c1.6 1.65 2.4 3.43 2.4 5.333 0 6.602-8.06 7.59-6.4 17.334C13.111 27.787 12 25.564 12 22.666c0-4.434 7.333-8 7.333-16Zm-6-5.333C15.111 3.555 16 5.556 16 7.333c0 8.333-11.333 10.962-5.333 22-3.488-.774-6-4-6-8 0-8.667 8.666-10 8.666-20Z" -->
-  <!-- 			fill="#111827"></path></svg -->
-  <!-- 	> -->
-  <!-- 	<h2>What's New in Astro 5.0?</h2> -->
-  <!-- 	<p> -->
-  <!-- 		From content layers to server islands, click to learn more about the new features and -->
-  <!-- 		improvements in Astro 5.0 -->
-  <!-- 	</p> -->
-  <!-- </a> -->
 </div>
 
 <style>
@@ -168,6 +212,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    padding-top: 46vh;
+    align-items: flex-start;
+  }
+
+  #hero-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
   body {
@@ -185,6 +238,8 @@
   footer {
     padding: 1rem min(5%, 4rem);
     width: 100%;
+    display: flex;
+    /* justify-content: flex-end; */
   }
 
   html {
@@ -282,7 +337,7 @@
     display: flex;
     flex-direction: column;
     padding: clamp(6%, 6rem, 12%) min(5%, 4rem);
-    height: 100vh;
+    min-height: 100vh;
     align-items: center;
     box-sizing: border-box;
     width: 100%;
@@ -296,7 +351,10 @@
   .experience-grid {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: min(90%, 800px);
+    padding: 2rem;
+    border-radius: 0.65rem;
+    background-color: white;
   }
 
   .experience {
@@ -310,12 +368,25 @@
 
   .company-role {
     grid-area: company-role;
+    font-weight: bold;
   }
 
   .date-location {
     width: 100%;
     grid-area: date-location;
     text-align: end;
+    font-weight: bold;
+  }
+
+  .btn {
+    background-color: var(--light-blue);
+    padding: 0.4rem 0.65rem;
+    border-radius: 16px;
+    font-weight: bold;
+  }
+
+  i {
+    font-size: 1rem;
   }
 
   .experience-details {
@@ -330,7 +401,7 @@
   #contact_button {
     background-color: var(--light-blue);
     padding: 0.5rem 0.65rem;
-    border-radius: 8px;
+    border-radius: 16px;
   }
 
   @media screen and (max-width: 600px) {
